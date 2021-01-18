@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Java并发基础</title>
+    <url>/cat_house/2020/05/15/20200515-concurrent/</url>
+    <content><![CDATA[<h2 id="1-什么是进程和线程"><a href="#1-什么是进程和线程" class="headerlink" title="1 什么是进程和线程"></a>1 什么是进程和线程</h2><h3 id="1-1-何为进程？"><a href="#1-1-何为进程？" class="headerlink" title="1.1 何为进程？"></a>1.1 何为进程？</h3><p>进程是系统运行程序的基本单位，系统运行一个程序即是一个进程从创建、运行到消亡的过程。</p>
+<p>在Java中，当我们启动main函数时其实就是启动了一个JVM的进程，而main函数所在的线程就是这个进程的一个线程，也称主线程。</p>
+<h3 id="1-2-何为线程？"><a href="#1-2-何为线程？" class="headerlink" title="1.2 何为线程？"></a>1.2 何为线程？</h3><p>线程与进程相似，但是线程是一个比进程更小的执行单位。一个进程在其执行中可以产生多个线程。与进程不同的是同一个类的多个线程共享进程的堆和方法区资源，但是每个 线程</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>并发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/cat_house/2019/11/28/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>arthas分享(一)</title>
+    <url>/cat_house/2020/10/27/20201027-arthas-1/</url>
+    <content><![CDATA[<h2 id="Arthas（阿尔萨斯）-能为你做什么？"><a href="#Arthas（阿尔萨斯）-能为你做什么？" class="headerlink" title="Arthas（阿尔萨斯） 能为你做什么？"></a>Arthas（阿尔萨斯） 能为你做什么？</h2><img src="/Users/yanzeyu/Blog/cat_house/source/images/arthas.png" style="zoom:100%; float:left" />
+
+<p><code>Arthas</code> 是Alibaba开源的Java诊断工具，深受开发者喜爱。</p>
+<p>当你遇到以下类似问题而束手无策时，<code>Arthas</code>可以帮助你解决：</p>
+<ol>
+<li>这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？</li>
+<li>我改的代码为什么没有执行到？难道是我没 commit？分支搞错了？</li>
+<li>遇到问题无法在线上 debug，难道只能通过加日志再重新发布吗？</li>
+<li>线上遇到某个用户的数据处理有问题，但线上同样无法 debug，线下无法重现！</li>
+<li>是否有一个全局视角来查看系统的运行状况？</li>
+<li>有什么办法可以监控到JVM的实时运行状态？</li>
+<li>怎么快速定位应用的热点，生成火焰图？</li>
+</ol>
+<p><code>Arthas</code>支持JDK 6+，支持Linux/Mac/Windows，采用命令行交互模式，同时提供丰富的 <code>Tab</code> 自动补全功能，进一步方便进行问题的定位和诊断。</p>
+<h1 id="Arthas-Install"><a href="#Arthas-Install" class="headerlink" title="Arthas Install"></a>Arthas Install</h1><h2 id="快速安装"><a href="#快速安装" class="headerlink" title="快速安装"></a>快速安装</h2><h3 id="使用arthas-boot（官方推荐）"><a href="#使用arthas-boot（官方推荐）" class="headerlink" title="使用arthas-boot（官方推荐）"></a>使用<code>arthas-boot</code>（官方推荐）</h3><p>下载<code>arthas-boot.jar</code>，然后用<code>java -jar</code>的方式启动：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O https:&#x2F;&#x2F;arthas.aliyun.com&#x2F;arthas-boot.jar</span><br><span class="line">java -jar arthas-boot.jar</span><br></pre></td></tr></table></figure>
+<p>如果下载速度比较慢，可以使用aliyun的镜像：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -jar arthas-boot.jar --repo-mirror aliyun --use-http</span><br></pre></td></tr></table></figure>
+<h3 id="使用as-sh"><a href="#使用as-sh" class="headerlink" title="使用as.sh"></a>使用<code>as.sh</code></h3><p>Arthas 支持在 Linux/Unix/Mac 等平台上一键安装，请复制以下内容，并粘贴到命令行中，敲 <code>回车</code> 执行即可：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -L https:&#x2F;&#x2F;arthas.aliyun.com&#x2F;install.sh | sh</span><br></pre></td></tr></table></figure>
+<p>上述命令会下载启动脚本文件 <code>as.sh</code> 到当前目录，你可以放在任何地方或将其加入到 <code>$PATH</code> 中。</p>
+<p>直接在shell下面执行<code>./as.sh</code>，就会进入交互界面。</p>
+<h1 id="Arthas启动"><a href="#Arthas启动" class="headerlink" title="Arthas启动"></a>Arthas启动</h1><h3 id="用as-sh启动"><a href="#用as-sh启动" class="headerlink" title="用as.sh启动"></a>用as.sh启动</h3><p>解压后，在文件夹里有<code>as.sh</code>，直接用<code>./as.sh</code>的方式启动：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;as.sh</span><br></pre></td></tr></table></figure>
+<p>打印帮助信息：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;as.sh -h</span><br></pre></td></tr></table></figure>
+<h3 id="用arthas-boot启动"><a href="#用arthas-boot启动" class="headerlink" title="用arthas-boot启动"></a>用arthas-boot启动</h3><p>或者在解压后，在文件夹里有<code>arthas-boot.jar</code>，直接用<code>java -jar</code>的方式启动：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -jar arthas-boot.jar</span><br></pre></td></tr></table></figure>
+<p>打印帮助信息：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -jar arthas-boot.jar -h</span><br></pre></td></tr></table></figure>
+<p>选择应用java进程：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* [1]: 35542</span><br><span class="line">  [2]: 71560 arthas-demo.jar</span><br></pre></td></tr></table></figure>
+<p>Demo进程是第2个，则输入2，再输入<code>回车/enter</code>。Arthas会attach到目标进程上，并输出日志：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[INFO] Try to attach process 71560</span><br><span class="line">[INFO] Attach process 71560 success.</span><br><span class="line">[INFO] arthas-client connect 127.0.0.1 3658</span><br><span class="line">  ,---.  ,------. ,--------.,--.  ,--.  ,---.   ,---.</span><br><span class="line"> &#x2F;  O  \ |  .--. &#39;&#39;--.  .--&#39;|  &#39;--&#39;  | &#x2F;  O  \ &#39;   .-&#39;</span><br><span class="line">|  .-.  ||  &#39;--&#39;.&#39;   |  |   |  .--.  ||  .-.  |&#96;.  &#96;-.</span><br><span class="line">|  | |  ||  |\  \    |  |   |  |  |  ||  | |  |.-&#39;    |</span><br><span class="line">&#96;--&#39; &#96;--&#39;&#96;--&#39; &#39;--&#39;   &#96;--&#39;   &#96;--&#39;  &#96;--&#39;&#96;--&#39; &#96;--&#39;&#96;-----&#39;</span><br><span class="line"> </span><br><span class="line">wiki: https:&#x2F;&#x2F;arthas.aliyun.com&#x2F;doc</span><br><span class="line">version: 3.0.5.20181127201536</span><br><span class="line">pid: 71560</span><br><span class="line">time: 2018-11-28 19:16:24</span><br><span class="line"> </span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>在命令行下面执行（使用和目标进程一致的用户启动，否则可能attach失败).</p>
+<p>执行该程序的用户需要和目标进程具有相同的权限。比如以<code>admin</code>用户来执行：<code>sudo su admin &amp;&amp; java -jar arthas-boot.jar</code> 或 <code>sudo -u admin -EH java -jar arthas-boot.jar</code>或<code>sudo -u admin ./as.sh</code>。</p>
+<h1 id="Arthas命令"><a href="#Arthas命令" class="headerlink" title="Arthas命令"></a>Arthas命令</h1><h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><ul>
+<li>help——查看命令帮助信息</li>
+<li>cat——打印文件内容，和linux里的cat命令类似</li>
+<li>echo–打印参数，和linux里的echo命令类似</li>
+<li>grep——匹配查找，和linux里的grep命令类似</li>
+<li>tee——复制标准输入到标准输出和指定的文件，和linux里的tee命令类似</li>
+<li>pwd——返回当前的工作目录，和linux命令类似</li>
+<li>cls——清空当前屏幕区域</li>
+<li>session——查看当前会话的信息</li>
+<li>reset——重置增强类，将被 Arthas 增强过的类全部还原，Arthas 服务端关闭时会重置所有增强过的类</li>
+<li>version——输出当前目标 Java 进程所加载的 Arthas 版本号</li>
+<li>history——打印命令历史</li>
+<li>quit——退出当前 Arthas 客户端，其他 Arthas 客户端不受影响</li>
+<li>stop——关闭 Arthas 服务端，所有 Arthas 客户端全部退出</li>
+<li>keymap——Arthas快捷键列表及自定义快捷键</li>
+</ul>
+<h2 id="jvm相关"><a href="#jvm相关" class="headerlink" title="jvm相关"></a>jvm相关</h2><ul>
+<li>dashboard——当前系统的实时数据面板</li>
+<li>thread——查看当前 JVM 的线程堆栈信息</li>
+<li>jvm——查看当前 JVM 的信息</li>
+<li>sysprop——查看和修改JVM的系统属性</li>
+<li>sysenv——查看JVM的环境变量</li>
+<li>vmoption——查看和修改JVM里诊断相关的option</li>
+<li>perfcounter——查看当前 JVM 的Perf Counter信息</li>
+<li>logger——查看和修改logger</li>
+<li>getstatic——查看类的静态属性</li>
+<li>ognl——执行ognl表达式</li>
+<li>mbean——查看 Mbean 的信息</li>
+<li>heapdump——dump java heap, 类似jmap命令的heap dump功能</li>
+</ul>
+<h2 id="class-classloader相关"><a href="#class-classloader相关" class="headerlink" title="class/classloader相关"></a>class/classloader相关</h2><ul>
+<li>sc——查看JVM已加载的类信息</li>
+<li>sm——查看已加载类的方法信息</li>
+<li>jad——反编译指定已加载类的源码</li>
+<li>mc——内存编译器，内存编译<code>.java</code>文件为<code>.class</code>文件</li>
+<li>redefine——加载外部的<code>.class</code>文件，redefine到JVM里</li>
+<li>dump——dump 已加载类的 byte code 到特定目录</li>
+<li>classloader——查看classloader的继承树，urls，类加载信息，使用classloader去getResource</li>
+</ul>
+<h2 id="monitor-watch-trace相关"><a href="#monitor-watch-trace相关" class="headerlink" title="monitor/watch/trace相关"></a>monitor/watch/trace相关</h2><blockquote>
+<p>请注意，这些命令，都通过字节码增强技术来实现的，会在指定类的方法中插入一些切面来实现数据统计和观测，因此在线上、预发使用时，请尽量明确需要观测的类、方法以及条件，诊断结束要执行 <code>stop</code> 或将增强过的类执行 <code>reset</code> 命令。</p>
+</blockquote>
+<ul>
+<li>monitor——方法执行监控</li>
+<li>watch——方法执行数据观测</li>
+<li>trace——方法内部调用路径，并输出方法路径上的每个节点上耗时</li>
+<li>stack——输出当前方法被调用的调用路径</li>
+<li>tt——方法执行数据的时空隧道，记录下指定方法每次调用的入参和返回信息，并能对这些不同的时间下调用进行观测</li>
+</ul>
+<h2 id="profiler-火焰图"><a href="#profiler-火焰图" class="headerlink" title="profiler/火焰图"></a>profiler/火焰图</h2><ul>
+<li>profiler–使用async-profiler对应用采样，生成火焰图</li>
+</ul>
+<h2 id="options"><a href="#options" class="headerlink" title="options"></a>options</h2><ul>
+<li>options——查看或设置Arthas全局开关</li>
+</ul>
+<h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><p>Arthas支持使用管道对上述命令的结果进行进一步的处理，如<code>sm java.lang.String * | grep &#39;index&#39;</code></p>
+<ul>
+<li>grep——搜索满足条件的结果</li>
+<li>plaintext——将命令的结果去除ANSI颜色</li>
+<li>wc——按行统计输出结果</li>
+</ul>
+<h1 id="Web-Console"><a href="#Web-Console" class="headerlink" title="Web Console"></a>Web Console</h1><h2 id="通过浏览器连接arthas"><a href="#通过浏览器连接arthas" class="headerlink" title="通过浏览器连接arthas"></a>通过浏览器连接arthas</h2><p>Arthas目前支持Web Console，用户在attach成功之后，可以直接访问：<a href="http://127.0.0.1:3658/%E3%80%82">http://127.0.0.1:3658/。</a></p>
+<p>可以填入IP，远程连接其它机器上的arthas。</p>
+<p><img src="https://arthas.aliyun.com/doc/_images/web-console-local.png" alt="_images/web-console-local.png"></p>
+<blockquote>
+<p>默认情况下，arthas只listen 127.0.0.1，所以如果想从远程连接，则可以使用 <code>--target-ip</code>参数指定listen的IP，更多参考<code>-h</code>的帮助说明。 注意会有安全风险，考虑下面的tunnel server的方案。</p>
+</blockquote>
+<h1 id="Http-API"><a href="#Http-API" class="headerlink" title="Http API"></a>Http API</h1><h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>Http API 提供类似RESTful的交互接口，请求和响应均为JSON格式的数据。相对于Telnet/WebConsole的输出非结构化文本数据，Http API可以提供结构化的数据，支持更复杂的交互功能，比如特定应用场景的一系列诊断操作。</p>
+<h3 id="访问地址"><a href="#访问地址" class="headerlink" title="访问地址"></a>访问地址</h3><p>Http API接口地址为：<code>http://ip:port/api</code>，必须使用POST方式提交请求参数。如POST <code>http://127.0.0.1:8563/api</code> 。</p>
+<p>注意：telnet服务的3658端口与Chrome浏览器有兼容性问题，建议使用http端口8563来访问http接口。</p>
+<h1 id="部分命令展示"><a href="#部分命令展示" class="headerlink" title="部分命令展示"></a>部分命令展示</h1><h1 id="dashboard"><a href="#dashboard" class="headerlink" title="dashboard"></a>dashboard</h1><blockquote>
+<p>当前系统的实时数据面板，按 ctrl+c 退出。</p>
+</blockquote>
+<p>当运行在Ali-tomcat时，会显示当前tomcat的实时信息，如HTTP请求的qps, rt, 错误数, 线程池信息等等。</p>
+<h2 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h2><table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[i:]</td>
+<td>刷新实时数据的时间间隔 (ms)，默认5000ms</td>
+</tr>
+<tr>
+<td>[n:]</td>
+<td>刷新实时数据的次数</td>
+</tr>
+</tbody></table>
+<h2 id="截图展示"><a href="#截图展示" class="headerlink" title="截图展示"></a>截图展示</h2><p><img src="https://arthas.aliyun.com/doc/_images/dashboard.png" alt="_images/dashboard.png"></p>
+<h1 id="thread"><a href="#thread" class="headerlink" title="thread"></a>thread</h1><blockquote>
+<p>查看当前线程信息，查看线程的堆栈</p>
+</blockquote>
+<h2 id="参数说明-1"><a href="#参数说明-1" class="headerlink" title="参数说明"></a>参数说明</h2><table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>id</em></td>
+<td>线程id</td>
+</tr>
+<tr>
+<td>[n:]</td>
+<td>指定最忙的前N个线程并打印堆栈</td>
+</tr>
+<tr>
+<td>[b]</td>
+<td>找出当前阻塞其他线程的线程</td>
+</tr>
+<tr>
+<td>[i <code>&lt;value&gt;</code>]</td>
+<td>指定cpu使用率统计的采样间隔，单位为毫秒，默认值为200</td>
+</tr>
+<tr>
+<td>[–all]</td>
+<td>显示所有匹配的线程</td>
+</tr>
+</tbody></table>
+<h3 id="当没有参数时，显示第一页线程的信息"><a href="#当没有参数时，显示第一页线程的信息" class="headerlink" title="当没有参数时，显示第一页线程的信息"></a>当没有参数时，显示第一页线程的信息</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ thread</span><br></pre></td></tr></table></figure>
+<h3 id="展示当前最忙的前N个线程并打印堆栈"><a href="#展示当前最忙的前N个线程并打印堆栈" class="headerlink" title="展示当前最忙的前N个线程并打印堆栈"></a>展示当前最忙的前N个线程并打印堆栈</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ thread -n 3</span><br></pre></td></tr></table></figure>
+<h3 id="thread-id-显示指定线程的运行堆栈"><a href="#thread-id-显示指定线程的运行堆栈" class="headerlink" title="thread id, 显示指定线程的运行堆栈"></a>thread id, 显示指定线程的运行堆栈</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ thread 1</span><br></pre></td></tr></table></figure>
+<h3 id="thread-b-找出当前阻塞其他线程的线程"><a href="#thread-b-找出当前阻塞其他线程的线程" class="headerlink" title="thread -b, 找出当前阻塞其他线程的线程"></a>thread -b, 找出当前阻塞其他线程的线程</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ thread -b</span><br></pre></td></tr></table></figure>
+<h3 id="thread-–state-，查看指定状态的线程"><a href="#thread-–state-，查看指定状态的线程" class="headerlink" title="thread –state ，查看指定状态的线程"></a>thread –state ，查看指定状态的线程</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ thread --state WAITING</span><br></pre></td></tr></table></figure>
+<h1 id="jad"><a href="#jad" class="headerlink" title="jad"></a>jad</h1><blockquote>
+<p>反编译指定已加载类的源码</p>
+</blockquote>
+<p><code>jad</code> 命令将 JVM 中实际运行的 class 的 byte code 反编译成 java 代码，便于你理解业务逻辑；</p>
+<ul>
+<li>在 Arthas Console 上，反编译出来的源码是带语法高亮的，阅读更方便</li>
+<li>当然，反编译出来的 java 代码可能会存在语法错误，但不影响你进行阅读理解</li>
+</ul>
+<h2 id="参数说明-2"><a href="#参数说明-2" class="headerlink" title="参数说明"></a>参数说明</h2><table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>class-pattern</em></td>
+<td>类名表达式匹配</td>
+</tr>
+<tr>
+<td><code>[c:]</code></td>
+<td>类所属 ClassLoader 的 hashcode</td>
+</tr>
+<tr>
+<td><code>[classLoaderClass:]</code></td>
+<td>指定执行表达式的 ClassLoader 的 class name</td>
+</tr>
+<tr>
+<td>[E]</td>
+<td>开启正则表达式匹配，默认为通配符匹配</td>
+</tr>
+</tbody></table>
+<h3 id="反编译时只显示源代码"><a href="#反编译时只显示源代码" class="headerlink" title="反编译时只显示源代码"></a>反编译时只显示源代码</h3><p>默认情况下，反编译结果里会带有<code>ClassLoader</code>信息，通过<code>--source-only</code>选项，可以只打印源代码。方便和mc/redefine命令结合使用。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ jad --source-only demo.MathGame</span><br></pre></td></tr></table></figure>
+<h3 id="反编译指定的函数"><a href="#反编译指定的函数" class="headerlink" title="反编译指定的函数"></a>反编译指定的函数</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ jad demo.MathGame main</span><br></pre></td></tr></table></figure>
+<h1 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h1><blockquote>
+<p>方法执行数据观测</p>
+</blockquote>
+<p>让你能方便的观察到指定方法的调用情况。能观察到的范围为：<code>返回值</code>、<code>抛出异常</code>、<code>入参</code>，通过编写 OGNL 表达式进行对应变量的查看。</p>
+<h2 id="参数说明-3"><a href="#参数说明-3" class="headerlink" title="参数说明"></a>参数说明</h2><p>watch 的参数比较多，主要是因为它能在 4 个不同的场景观察对象</p>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>class-pattern</em></td>
+<td>类名表达式匹配</td>
+</tr>
+<tr>
+<td><em>method-pattern</em></td>
+<td>方法名表达式匹配</td>
+</tr>
+<tr>
+<td><em>express</em></td>
+<td>观察表达式</td>
+</tr>
+<tr>
+<td><em>condition-express</em></td>
+<td>条件表达式</td>
+</tr>
+<tr>
+<td>[b]</td>
+<td>在<strong>方法调用之前</strong>观察</td>
+</tr>
+<tr>
+<td>[e]</td>
+<td>在<strong>方法异常之后</strong>观察</td>
+</tr>
+<tr>
+<td>[s]</td>
+<td>在<strong>方法返回之后</strong>观察</td>
+</tr>
+<tr>
+<td>[f]</td>
+<td>在<strong>方法结束之后</strong>(正常返回和异常返回)观察</td>
+</tr>
+<tr>
+<td>[E]</td>
+<td>开启正则表达式匹配，默认为通配符匹配</td>
+</tr>
+<tr>
+<td>[x:]</td>
+<td>指定输出结果的属性遍历深度，默认为 1</td>
+</tr>
+</tbody></table>
+<p>这里重点要说明的是观察表达式，观察表达式的构成主要由 ognl 表达式组成，所以你可以这样写<code>&quot;&#123;params,returnObj&#125;&quot;</code>，只要是一个合法的 ognl 表达式，都能被正常支持。</p>
+<p>观察的维度也比较多，主要体现在参数 <code>advice</code> 的数据结构上。<code>Advice</code> 参数最主要是封装了通知节点的所有信息。请参考<a href="https://arthas.aliyun.com/doc/advice-class.html">表达式核心变量</a>中关于该节点的描述。</p>
+<ul>
+<li>特殊用法请参考：<a href="https://github.com/alibaba/arthas/issues/71">https://github.com/alibaba/arthas/issues/71</a></li>
+<li>OGNL表达式官网：<a href="https://commons.apache.org/proper/commons-ognl/language-guide.html">https://commons.apache.org/proper/commons-ognl/language-guide.html</a></li>
+</ul>
+<h3 id="观察方法出参和返回值"><a href="#观察方法出参和返回值" class="headerlink" title="观察方法出参和返回值"></a>观察方法出参和返回值</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &quot;&#123;params,returnObj&#125;&quot; -x 2</span><br></pre></td></tr></table></figure>
+<h3 id="观察方法入参"><a href="#观察方法入参" class="headerlink" title="观察方法入参"></a>观察方法入参</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &quot;&#123;params,returnObj&#125;&quot; -x 2 -b</span><br></pre></td></tr></table></figure>
+<h3 id="同时观察方法调用前和方法返回后"><a href="#同时观察方法调用前和方法返回后" class="headerlink" title="同时观察方法调用前和方法返回后"></a>同时观察方法调用前和方法返回后</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &quot;&#123;params,target,returnObj&#125;&quot; -x 2 -b -s -n 2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>参数里<code>-n 2</code>，表示只执行两次</li>
+<li>这里输出结果中，第一次输出的是方法调用前的观察表达式的结果，第二次输出的是方法返回后的表达式的结果</li>
+<li>结果的输出顺序和事件发生的先后顺序一致，和命令中 <code>-s -b</code> 的顺序无关</li>
+</ul>
+<h3 id="条件表达式的例子"><a href="#条件表达式的例子" class="headerlink" title="条件表达式的例子"></a>条件表达式的例子</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &quot;&#123;params[0],target&#125;&quot; &quot;params[0]&lt;0&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="观察异常信息的例子"><a href="#观察异常信息的例子" class="headerlink" title="观察异常信息的例子"></a>观察异常信息的例子</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &quot;&#123;params[0],throwExp&#125;&quot; -e -x 2</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-e</code>表示抛出异常时才触发</li>
+<li>express中，表示异常信息的变量是<code>throwExp</code></li>
+</ul>
+<h3 id="按照耗时进行过滤"><a href="#按照耗时进行过滤" class="headerlink" title="按照耗时进行过滤"></a>按照耗时进行过滤</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &#39;&#123;params, returnObj&#125;&#39; &#39;#cost&gt;200&#39; -x 2</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>#cost&gt;200</code>(单位是<code>ms</code>)表示只有当耗时大于200ms时才会输出，过滤掉执行时间小于200ms的调用</li>
+</ul>
+<h1 id="trace"><a href="#trace" class="headerlink" title="trace"></a>trace</h1><blockquote>
+<p>方法内部调用路径，并输出方法路径上的每个节点上耗时</p>
+</blockquote>
+<p><code>trace</code> 命令能主动搜索 <code>class-pattern</code>／<code>method-pattern</code> 对应的方法调用路径，渲染和统计整个调用链路上的所有性能开销和追踪调用链路。</p>
+<h2 id="参数说明-4"><a href="#参数说明-4" class="headerlink" title="参数说明"></a>参数说明</h2><table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>class-pattern</em></td>
+<td>类名表达式匹配</td>
+</tr>
+<tr>
+<td><em>method-pattern</em></td>
+<td>方法名表达式匹配</td>
+</tr>
+<tr>
+<td><em>condition-express</em></td>
+<td>条件表达式</td>
+</tr>
+<tr>
+<td>[E]</td>
+<td>开启正则表达式匹配，默认为通配符匹配</td>
+</tr>
+<tr>
+<td><code>[n:]</code></td>
+<td>命令执行次数</td>
+</tr>
+<tr>
+<td><code>#cost</code></td>
+<td>方法执行耗时</td>
+</tr>
+</tbody></table>
+<p>这里重点要说明的是观察表达式，观察表达式的构成主要由 ognl 表达式组成，所以你可以这样写<code>&quot;&#123;params,returnObj&#125;&quot;</code>，只要是一个合法的 ognl 表达式，都能被正常支持。</p>
+<p>观察的维度也比较多，主要体现在参数 <code>advice</code> 的数据结构上。<code>Advice</code> 参数最主要是封装了通知节点的所有信息。</p>
+<h3 id="trace函数"><a href="#trace函数" class="headerlink" title="trace函数"></a>trace函数</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ trace demo.MathGame run</span><br></pre></td></tr></table></figure>
+<h3 id="trace次数限制"><a href="#trace次数限制" class="headerlink" title="trace次数限制"></a>trace次数限制</h3><p>如果方法调用的次数很多，那么可以用<code>-n</code>参数指定捕捉结果的次数。比如下面的例子里，捕捉到一次调用就退出命令。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ trace demo.MathGame run -n 1</span><br></pre></td></tr></table></figure>
+<h3 id="trace多个类或者多个函数"><a href="#trace多个类或者多个函数" class="headerlink" title="trace多个类或者多个函数"></a>trace多个类或者多个函数</h3><p>trace命令只会trace匹配到的函数里的子调用，并不会向下trace多层。因为trace是代价比较贵的，多层trace可能会导致最终要trace的类和函数非常多。</p>
+<p>可以用正则表匹配路径上的多个类和函数，一定程度上达到多层trace的效果。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">trace -E com.test.ClassA|org.test.ClassB method1|method2|method3</span><br></pre></td></tr></table></figure>
+<h3 id="据调用耗时过滤"><a href="#据调用耗时过滤" class="headerlink" title="据调用耗时过滤"></a>据调用耗时过滤</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ trace demo.MathGame run &#39;#cost &gt; 10&#39;</span><br></pre></td></tr></table></figure>
+<h1 id="tt"><a href="#tt" class="headerlink" title="tt"></a>tt</h1><blockquote>
+<p>方法执行数据的时空隧道，记录下指定方法每次调用的入参和返回信息，并能对这些不同的时间下调用进行观测</p>
+</blockquote>
+<p><code>watch</code> 虽然很方便和灵活，但需要提前想清楚观察表达式的拼写，这对排查问题而言要求太高，因为很多时候我们并不清楚问题出自于何方，只能靠蛛丝马迹进行猜测。</p>
+<p>这个时候如果能记录下当时方法调用的所有入参和返回值、抛出的异常会对整个问题的思考与判断非常有帮助。</p>
+<p>于是乎，TimeTunnel 命令就诞生了。</p>
+<h3 id="记录调用"><a href="#记录调用" class="headerlink" title="记录调用"></a>记录调用</h3><p>对于一个最基本的使用来说，就是记录下当前方法的每次调用环境现场。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ tt -t demo.MathGame primeFactors</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>命令参数解析</p>
+<ul>
+<li><p><code>-t</code></p>
+<p>tt 命令有很多个主参数，<code>-t</code> 就是其中之一。这个参数的表明希望记录下类 <code>*Test</code> 的 <code>print</code> 方法的每次执行情况。</p>
+</li>
+<li><p><code>-n 3</code></p>
+<p>当你执行一个调用量不高的方法时可能你还能有足够的时间用 <code>CTRL+C</code> 中断 tt 命令记录的过程，但如果遇到调用量非常大的方法，瞬间就能将你的 JVM 内存撑爆。</p>
+<p>此时你可以通过 <code>-n</code> 参数指定你需要记录的次数，当达到记录次数时 Arthas 会主动中断tt命令的记录过程，避免人工操作无法停止的情况。</p>
+</li>
+</ul>
+</li>
+<li><p>表格字段说明</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>表格字段</th>
+<th>字段解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>INDEX</td>
+<td>时间片段记录编号，每一个编号代表着一次调用，后续tt还有很多命令都是基于此编号指定记录操作，非常重要。</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>方法执行的本机时间，记录了这个时间片段所发生的本机时间</td>
+</tr>
+<tr>
+<td>COST(ms)</td>
+<td>方法执行的耗时</td>
+</tr>
+<tr>
+<td>IS-RET</td>
+<td>方法是否以正常返回的形式结束</td>
+</tr>
+<tr>
+<td>IS-EXP</td>
+<td>方法是否以抛异常的形式结束</td>
+</tr>
+<tr>
+<td>OBJECT</td>
+<td>执行对象的<code>hashCode()</code>，注意，曾经有人误认为是对象在JVM中的内存地址，但很遗憾他不是。但他能帮助你简单的标记当前执行方法的类实体</td>
+</tr>
+<tr>
+<td>CLASS</td>
+<td>执行的类名</td>
+</tr>
+<tr>
+<td>METHOD</td>
+<td>执行的方法名</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>条件表达式</p>
+<p>不知道大家是否有在使用过程中遇到以下困惑</p>
+<ul>
+<li>Arthas 似乎很难区分出重载的方法</li>
+<li>我只需要观察特定参数，但是 tt 却全部都给我记录了下来</li>
+</ul>
+<p>条件表达式也是用 <code>OGNL</code> 来编写，核心的判断对象依然是 <code>Advice</code> 对象。除了 <code>tt</code> 命令之外，<code>watch</code>、<code>trace</code>、<code>stack</code> 命令也都支持条件表达式。</p>
+</li>
+<li><p>解决方法重载</p>
+<p><code>tt -t *Test print params.length==1</code></p>
+<p>通过制定参数个数的形式解决不同的方法签名，如果参数个数一样，你还可以这样写</p>
+<p><code>tt -t *Test print &#39;params[1] instanceof Integer&#39;</code></p>
+</li>
+<li><p>解决指定参数</p>
+<p><code>tt -t *Test print params[0].mobile==&quot;13989838402&quot;</code></p>
+</li>
+</ul>
+<h3 id="检索调用记录"><a href="#检索调用记录" class="headerlink" title="检索调用记录"></a>检索调用记录</h3><p>当你用 <code>tt</code> 记录了一大片的时间片段之后，你希望能从中筛选出自己需要的时间片段，这个时候你就需要对现有记录进行检索。</p>
+<p>假设我们有这些记录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ tt -l</span><br></pre></td></tr></table></figure>
+<p>我需要筛选出 <code>primeFactors</code> 方法的调用信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ tt -s &#39;method.name&#x3D;&#x3D;&quot;primeFactors&quot;&#39;</span><br></pre></td></tr></table></figure>
+<p>你需要一个 <code>-s</code> 参数。同样的，搜索表达式的核心对象依旧是 <code>Advice</code> 对象。</p>
+<h3 id="查看调用信息"><a href="#查看调用信息" class="headerlink" title="查看调用信息"></a>查看调用信息</h3><p>对于具体一个时间片的信息而言，你可以通过 <code>-i</code> 参数后边跟着对应的 <code>INDEX</code> 编号查看到他的详细信息。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ tt -i 1003</span><br></pre></td></tr></table></figure>
+<h3 id="重做一次调用"><a href="#重做一次调用" class="headerlink" title="重做一次调用"></a>重做一次调用</h3><p>当你稍稍做了一些调整之后，你可能需要前端系统重新触发一次你的调用，此时得求爷爷告奶奶的需要前端配合联调的同学再次发起一次调用。而有些场景下，这个调用不是这么好触发的。</p>
+<p><code>tt</code> 命令由于保存了当时调用的所有现场信息，所以我们可以自己主动对一个 <code>INDEX</code> 编号的时间片自主发起一次调用，从而解放你的沟通成本。此时你需要 <code>-p</code> 参数。通过 <code>--replay-times</code> 指定 调用次数，通过 <code>--replay-interval</code> 指定多次调用间隔(单位ms, 默认1000ms)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ tt -i 1004 -p</span><br></pre></td></tr></table></figure>
+<p>你会发现结果虽然一样，但调用的路径发生了变化，有原来的程序发起变成了 Arthas 自己的内部线程发起的调用了。</p>
+<ul>
+<li><p>需要强调的点</p>
+<ol>
+<li><p><strong>ThreadLocal 信息丢失</strong></p>
+<p>很多框架偷偷的将一些环境变量信息塞到了发起调用线程的 ThreadLocal 中，由于调用线程发生了变化，这些 ThreadLocal 线程信息无法通过 Arthas 保存，所以这些信息将会丢失。</p>
+<p>一些常见的 CASE 比如：鹰眼的 TraceId 等。</p>
+</li>
+<li><p><strong>引用的对象</strong></p>
+<p>需要强调的是，<code>tt</code> 命令是将当前环境的对象引用保存起来，但仅仅也只能保存一个引用而已。如果方法内部对入参进行了变更，或者返回的对象经过了后续的处理，那么在 <code>tt</code> 查看的时候将无法看到当时最准确的值。这也是为什么 <code>watch</code> 命令存在的意义。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="表达式核心变量"><a href="#表达式核心变量" class="headerlink" title="表达式核心变量"></a>表达式核心变量</h1><p>无论是匹配表达式也好、观察表达式也罢，他们核心判断变量都是围绕着一个 Arthas 中的通用通知对象 <code>Advice</code> 进行。</p>
+<p>它的简略代码结构如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Advice &#123;</span><br><span class="line"> </span><br><span class="line">    private final ClassLoader loader;</span><br><span class="line">    private final Class&lt;?&gt; clazz;</span><br><span class="line">    private final ArthasMethod method;</span><br><span class="line">    private final Object target;</span><br><span class="line">    private final Object[] params;</span><br><span class="line">    private final Object returnObj;</span><br><span class="line">    private final Throwable throwExp;</span><br><span class="line">    private final boolean isBefore;</span><br><span class="line">    private final boolean isThrow;</span><br><span class="line">    private final boolean isReturn;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; getter&#x2F;setter  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>这里列一个表格来说明不同变量的含义</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>变量解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>loader</td>
+<td>本次调用类所在的 ClassLoader</td>
+</tr>
+<tr>
+<td>clazz</td>
+<td>本次调用类的 Class 引用</td>
+</tr>
+<tr>
+<td>method</td>
+<td>本次调用方法反射引用</td>
+</tr>
+<tr>
+<td>target</td>
+<td>本次调用类的实例</td>
+</tr>
+<tr>
+<td>params</td>
+<td>本次调用参数列表，这是一个数组，如果方法是无参方法则为空数组</td>
+</tr>
+<tr>
+<td>returnObj</td>
+<td>本次调用返回的对象。当且仅当 <code>isReturn==true</code> 成立时候有效，表明方法调用是以正常返回的方式结束。如果当前方法无返回值 <code>void</code>，则值为 null</td>
+</tr>
+<tr>
+<td>throwExp</td>
+<td>本次调用抛出的异常。当且仅当 <code>isThrow==true</code> 成立时有效，表明方法调用是以抛出异常的方式结束。</td>
+</tr>
+<tr>
+<td>isBefore</td>
+<td>辅助判断标记，当前的通知节点有可能是在方法一开始就通知，此时 <code>isBefore==true</code> 成立，同时 <code>isThrow==false</code> 和 <code>isReturn==false</code>，因为在方法刚开始时，还无法确定方法调用将会如何结束。</td>
+</tr>
+<tr>
+<td>isThrow</td>
+<td>辅助判断标记，当前的方法调用以抛异常的形式结束。</td>
+</tr>
+<tr>
+<td>isReturn</td>
+<td>辅助判断标记，当前的方法调用以正常返回的形式结束。</td>
+</tr>
+</tbody></table>
+<p>所有变量都可以在表达式中直接使用，如果在表达式中编写了不符合 OGNL 脚本语法或者引入了不在表格中的变量，则退出命令的执行；用户可以根据当前的异常信息修正<code>条件表达式</code>或<code>观察表达式</code></p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><blockquote>
+<p>Github:<a href="https://github.com/alibaba/arthas">https://github.com/alibaba/arthas</a></p>
+</blockquote>
+<blockquote>
+<p>官方文档:<a href="https://arthas.aliyun.com/doc/">https://arthas.aliyun.com/doc/</a></p>
+</blockquote>
+<blockquote>
+<p>在线教程:<a href="https://arthas.aliyun.com/doc/arthas-tutorials.html?language=cn">https://arthas.aliyun.com/doc/arthas-tutorials.html?language=cn</a></p>
+</blockquote>
+<blockquote>
+<p>原理介绍1:<a href="https://zhuanlan.zhihu.com/p/115127052">https://zhuanlan.zhihu.com/p/115127052</a></p>
+</blockquote>
+<blockquote>
+<p>原理介绍2:<a href="https://www.jianshu.com/p/0771646f3f25">https://www.jianshu.com/p/0771646f3f25</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>问题排查</category>
+      </categories>
+      <tags>
+        <tag>arthas</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微基准测试工具-JMH</title>
+    <url>/cat_house/2020/12/02/jmh/</url>
+    <content><![CDATA[<h2 id="基准测试简介"><a href="#基准测试简介" class="headerlink" title="基准测试简介"></a>基准测试简介</h2><h3 id="什么是基准测试"><a href="#什么是基准测试" class="headerlink" title="什么是基准测试"></a>什么是基准测试</h3><p>基准测试是指通过设计科学的测试方法、测试工具和测试系统，实现对一类测试对象的某项性能指标进行定量的和可对比的测试。</p>
+<p>现代软件常常都把高性能作为目标。那么，何为高性能，性能就是快，更快吗？显然，如果没有一个量化的标准，难以衡量性能的好坏。</p>
+<p>不同的基准测试其具体内容和范围也存在很大的不同。如果是专业的性能工程师，更加熟悉的可能是类似SPEC提供的工业标准的系统级测试；而对于大多数 Java 开发者，更熟悉的则是范围相对较小、关注点更加细节的微基准测试（Micro-Benchmark）。何谓 Micro Benchmark 呢？ 简单地说就是在 <strong>method</strong> 层面上的 benchmark，精度可以精确到 <strong>微秒级</strong>。</p>
+<h3 id="何时需要微基准测试"><a href="#何时需要微基准测试" class="headerlink" title="何时需要微基准测试"></a>何时需要微基准测试</h3><p>微基准测试大多是 API 级别的性能测试。</p>
+<p>微基准测试的适用场景：</p>
+<ul>
+<li>如果开发公共类库、中间件，会被其他模块经常调用的 API。</li>
+<li>对于性能，如响应延迟、吞吐量有严格要求的核心 API。</li>
+</ul>
+<h3 id="Measure-don’t-guess"><a href="#Measure-don’t-guess" class="headerlink" title="Measure, don’t guess!"></a>Measure, don’t guess!</h3><p>当我们的代码出现性能问题的时候，我们总是试图做一些小的改动（很可能是随意的改动）希望能对性能有所提升。相反，我们应该建立一个稳定的性能测试环境（包括操作系统，jvm，应用服务器，数据库等），设置一些性能目标，针对这一目标不断的进行测试，直到达到你的预期。和持续测试、持续交付类似，我们也应该进行持续的性能测试。</p>
+<h2 id="JMH-简介"><a href="#JMH-简介" class="headerlink" title="JMH 简介"></a>JMH 简介</h2><p><a href="http://openjdk.java.net/projects/code-tools/jmh/">JMH(即 Java Microbenchmark Harness) (opens new window)</a>，是目前主流的微基准测试框架。JMH 是由 Hotspot JVM 团队专家开发的，除了支持完整的基准测试过程，包括预热、运行、统计和报告等，还支持 Java 和其他 JVM 语言。更重要的是，它针对 Hotspot JVM 提供了各种特性，以保证基准测试的正确性，整体准确性大大优于其他框架，并且，JMH 还提供了用近乎白盒的方式进行 Profiling 等工作的能力。</p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ol>
+<li>当你已经找出了热点函数，而需要对热点函数进行进一步的优化时，就可以使用 JMH 对优化的效果进行定量的分析。</li>
+<li>想定量地知道某个函数需要执行多长时间，以及执行时间和输入 n 的相关性</li>
+<li>一个函数有两种不同实现（例如 JSON 序列化/反序列化有 Jackson 和 Gson 实现），不知道哪种实现性能更好</li>
+</ol>
+<h3 id="JMH-概念"><a href="#JMH-概念" class="headerlink" title="JMH 概念"></a>JMH 概念</h3><ul>
+<li><code>Iteration</code> - iteration 是 JMH 进行测试的最小单位，包含一组 invocations。</li>
+<li><code>Invocation</code> - 一次 benchmark 方法调用。</li>
+<li><code>Operation</code> - benchmark 方法中，被测量操作的执行。如果被测试的操作在 benchmark 方法中循环执行，可以使用<code>@OperationsPerInvocation</code>表明循环次数，使测试结果为单次 operation 的性能。</li>
+<li><code>Warmup</code> - 在实际进行 benchmark 前先进行预热。因为某个函数被调用多次之后，JIT 会对其进行编译，通过预热可以使测量结果更加接近真实情况。</li>
+</ul>
+<h2 id="JMH-快速入门"><a href="#JMH-快速入门" class="headerlink" title="JMH 快速入门"></a>JMH 快速入门</h2><h3 id="使用maven模板构建测试项目"><a href="#使用maven模板构建测试项目" class="headerlink" title="使用maven模板构建测试项目"></a>使用maven模板构建测试项目</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn archetype:generate \</span><br><span class="line">  -DinteractiveMode=false \</span><br><span class="line">  -DarchetypeGroupId=org.openjdk.jmh \</span><br><span class="line">  -DarchetypeArtifactId=jmh-java-benchmark-archetype \</span><br><span class="line">  -DarchetypeVersion=1.26 \</span><br><span class="line">  -DgroupId=org.sample \</span><br><span class="line">  -DartifactId=jmh-test \</span><br><span class="line">  -Dversion=1.0</span><br></pre></td></tr></table></figure>
+<p>使用该maven原型创建出来的项目结构如下：</p>
+<blockquote>
+<p>一个包含了JMH相关依赖和<a href="http://maven.apache.org/plugins/maven-shade-plugin/">maven-shade-plugin</a>插件的pom文件 </p>
+<p>一个使用了<code>@Benchmark</code>注解的空的<code>MyBenchmark</code>文件</p>
+</blockquote>
+<p>这个时候，虽然我们是什么都还没做，但是我们刚刚创建的微基准测试项目已经可以启动并运行了。使用maven命令打包就能生成一个benchmarks.jar</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mvn clean install</span><br><span class="line">java -jar target&#x2F;benchmarks.jar</span><br></pre></td></tr></table></figure>
+<p>当我们使用以上命令运行这个jar时，我们就可以在控制台上看到一些有趣的内容输出：JMH进入循环、预热JVM，执行<code>@Benchmark</code>注解的空方法，并给出每秒操作的数量。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># JMH version: 1.26</span><br><span class="line"># VM version: JDK 1.8.0_231, Java HotSpot(TM) 64-Bit Server VM, 25.231-b11</span><br><span class="line"># VM invoker: &#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk1.8.0_231.jdk&#x2F;Contents&#x2F;Home&#x2F;jre&#x2F;bin&#x2F;java</span><br><span class="line"># VM options: &lt;none&gt;</span><br><span class="line"># Warmup: 5 iterations, 10 s each</span><br><span class="line"># Measurement: 5 iterations, 10 s each</span><br><span class="line"># Timeout: 10 min per iteration</span><br><span class="line"># Threads: 1 thread, will synchronize iterations</span><br><span class="line"># Benchmark mode: Throughput, ops&#x2F;time</span><br><span class="line"># Benchmark: org.sample.MyBenchmark.testMethod</span><br><span class="line"></span><br><span class="line"># Run progress: 0.00% complete, ETA 00:08:20</span><br><span class="line"># Fork: 1 of 5</span><br><span class="line"># Warmup Iteration   1: 3613498334.440 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   2: 3564493205.447 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   3: 3441462922.691 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   4: 3507613901.262 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   5: 3523187020.502 ops&#x2F;s</span><br><span class="line">Iteration   1: 2448307504.206 ops&#x2F;s</span><br><span class="line">Iteration   2: 1630681600.090 ops&#x2F;s</span><br><span class="line">Iteration   3: 3366861310.240 ops&#x2F;s</span><br><span class="line">Iteration   4: 3519422063.982 ops&#x2F;s</span><br><span class="line">Iteration   5: 3491225049.948 ops&#x2F;s</span><br><span class="line"></span><br><span class="line"># Run progress: 20.00% complete, ETA 00:06:41</span><br><span class="line"># Fork: 2 of 5</span><br><span class="line"># Warmup Iteration   1: 3568631032.943 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   2: 3547153684.337 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   3: 3593536219.916 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   4: 3511642798.140 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   5: 3612965640.138 ops&#x2F;s</span><br><span class="line">Iteration   1: 1528031676.317 ops&#x2F;s</span><br><span class="line">Iteration   2: 3538056385.238 ops&#x2F;s</span><br><span class="line">Iteration   3: 3617833508.560 ops&#x2F;s</span><br><span class="line">Iteration   4: 3632441119.590 ops&#x2F;s</span><br><span class="line">Iteration   5: 3513838533.836 ops&#x2F;s</span><br><span class="line"></span><br><span class="line"># Run progress: 40.00% complete, ETA 00:05:01</span><br><span class="line"># Fork: 3 of 5</span><br><span class="line"># Warmup Iteration   1: 3586337433.402 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   2: 3592639002.694 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   3: 3559066677.988 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   4: 3603043794.379 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   5: 3599842356.723 ops&#x2F;s</span><br><span class="line">Iteration   1: 3556557276.491 ops&#x2F;s</span><br><span class="line">Iteration   2: 3622054005.246 ops&#x2F;s</span><br><span class="line">Iteration   3: 3522844274.002 ops&#x2F;s</span><br><span class="line">Iteration   4: 3603419140.296 ops&#x2F;s</span><br><span class="line">Iteration   5: 3612098670.320 ops&#x2F;s</span><br><span class="line"></span><br><span class="line"># Run progress: 60.00% complete, ETA 00:03:20</span><br><span class="line"># Fork: 4 of 5</span><br><span class="line"># Warmup Iteration   1: 3620928591.647 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   2: 3619157269.184 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   3: 3618194251.462 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   4: 3615122084.576 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   5: 3625714964.134 ops&#x2F;s</span><br><span class="line">Iteration   1: 3613630491.468 ops&#x2F;s</span><br><span class="line">Iteration   2: 3590035487.192 ops&#x2F;s</span><br><span class="line">Iteration   3: 3590938922.626 ops&#x2F;s</span><br><span class="line">Iteration   4: 3624562485.347 ops&#x2F;s</span><br><span class="line">Iteration   5: 3594880556.938 ops&#x2F;s</span><br><span class="line"></span><br><span class="line"># Run progress: 80.00% complete, ETA 00:01:40</span><br><span class="line"># Fork: 5 of 5</span><br><span class="line"># Warmup Iteration   1: 3555228727.112 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   2: 3571258125.822 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   3: 3575934300.056 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   4: 3585899277.939 ops&#x2F;s</span><br><span class="line"># Warmup Iteration   5: 3591348099.383 ops&#x2F;s</span><br><span class="line">Iteration   1: 3515206949.570 ops&#x2F;s</span><br><span class="line">Iteration   2: 3615852722.541 ops&#x2F;s</span><br><span class="line">Iteration   3: 3559577622.713 ops&#x2F;s</span><br><span class="line">Iteration   4: 3601415006.743 ops&#x2F;s</span><br><span class="line">Iteration   5: 3599049971.403 ops&#x2F;s</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Result &quot;org.sample.MyBenchmark.testMethod&quot;:</span><br><span class="line">  3364352893.396 ±(99.9%) 438208797.840 ops&#x2F;s [Average]</span><br><span class="line">  (min, avg, max) &#x3D; (1528031676.317, 3364352893.396, 3632441119.590), stdev &#x3D; 584996207.857</span><br><span class="line">  CI (99.9%): [2926144095.556, 3802561691.236] (assumes normal distribution)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Run complete. Total time: 00:08:21</span><br><span class="line"></span><br><span class="line">REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on</span><br><span class="line">why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial</span><br><span class="line">experiments, perform baseline and negative tests that provide experimental control, make sure</span><br><span class="line">the benchmarking environment is safe on JVM&#x2F;OS&#x2F;HW level, ask for reviews from the domain experts.</span><br><span class="line">Do not assume the numbers tell you what you want them to tell.</span><br><span class="line"></span><br><span class="line">Benchmark                Mode  Cnt           Score           Error  Units</span><br><span class="line">MyBenchmark.testMethod  thrpt   25  3364352893.396 ± 438208797.840  ops&#x2F;s</span><br></pre></td></tr></table></figure>
+<h3 id="现有项目引入maven依赖"><a href="#现有项目引入maven依赖" class="headerlink" title="现有项目引入maven依赖"></a>现有项目引入maven依赖</h3><p>因为 JMH 是 JDK9 自带的，如果是 JDK9 之前的版本需要加入如下依赖（目前 JMH 的最新版本为 `1.26）：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.openjdk.jmh<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jmh-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.26<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.openjdk.jmh<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jmh-generator-annprocess<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.26<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package org.sample;</span><br><span class="line"></span><br><span class="line">import org.openjdk.jmh.annotations.Benchmark;</span><br><span class="line">import org.openjdk.jmh.annotations.BenchmarkMode;</span><br><span class="line">import org.openjdk.jmh.annotations.Fork;</span><br><span class="line">import org.openjdk.jmh.annotations.Measurement;</span><br><span class="line">import org.openjdk.jmh.annotations.Mode;</span><br><span class="line">import org.openjdk.jmh.annotations.OutputTimeUnit;</span><br><span class="line">import org.openjdk.jmh.annotations.Threads;</span><br><span class="line">import org.openjdk.jmh.annotations.Warmup;</span><br><span class="line">import org.openjdk.jmh.infra.Blackhole;</span><br><span class="line">import org.openjdk.jmh.results.format.ResultFormatType;</span><br><span class="line">import org.openjdk.jmh.runner.Runner;</span><br><span class="line">import org.openjdk.jmh.runner.RunnerException;</span><br><span class="line">import org.openjdk.jmh.runner.options.Options;</span><br><span class="line">import org.openjdk.jmh.runner.options.OptionsBuilder;</span><br><span class="line"></span><br><span class="line">import java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line">@BenchmarkMode(Mode.AverageTime)</span><br><span class="line">@Warmup(iterations &#x3D; 3)</span><br><span class="line">@Measurement(iterations &#x3D; 5, time &#x3D; 5, timeUnit &#x3D; TimeUnit.SECONDS)</span><br><span class="line">@Threads(10)</span><br><span class="line">@Fork(1)</span><br><span class="line">@OutputTimeUnit(TimeUnit.NANOSECONDS)</span><br><span class="line">public class StringConcatBenchmark &#123;</span><br><span class="line"></span><br><span class="line">    @Benchmark</span><br><span class="line">    public void testStringAdd(Blackhole blackhole) &#123;</span><br><span class="line">        String a &#x3D; &quot;&quot;;</span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line">            a +&#x3D; i;</span><br><span class="line">        &#125;</span><br><span class="line">        blackhole.consume(a);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Benchmark</span><br><span class="line">    public void testStringBuilderAdd(Blackhole blackhole) &#123;</span><br><span class="line">        StringBuilder sb &#x3D; new StringBuilder();</span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line">            sb.append(i);</span><br><span class="line">        &#125;</span><br><span class="line">        blackhole.consume(sb);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Benchmark</span><br><span class="line">    public void testStringBufferAdd(Blackhole blackhole) &#123;</span><br><span class="line">        StringBuffer sb &#x3D; new StringBuffer();</span><br><span class="line">        for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line">            sb.append(i);</span><br><span class="line">        &#125;</span><br><span class="line">        blackhole.consume(sb);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws RunnerException &#123;</span><br><span class="line">        Options options &#x3D; new 		   OptionsBuilder().include(StringConcatBenchmark.class.getSimpleName())</span><br><span class="line">            .output(&quot;StringAdd.log&quot;).resultFormat(ResultFormatType.JSON).build();</span><br><span class="line">        new Runner(options).run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="执行-main-方法"><a href="#执行-main-方法" class="headerlink" title="执行 main 方法"></a>执行 main 方法</h4><p>执行 main 方法，耐心等待测试结果，最终会生成一个测试报告，内容大致如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># JMH version: 1.26</span><br><span class="line"># VM version: JDK 11.0.6, Java HotSpot(TM) 64-Bit Server VM, 11.0.6+8-LTS</span><br><span class="line"># VM invoker: &#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk-11.0.6.jdk&#x2F;Contents&#x2F;Home&#x2F;bin&#x2F;java</span><br><span class="line"># VM options: -javaagent:&#x2F;Applications&#x2F;IntelliJ IDEA 2.app&#x2F;Contents&#x2F;lib&#x2F;idea_rt.jar&#x3D;61459:&#x2F;Applications&#x2F;IntelliJ IDEA 2.app&#x2F;Contents&#x2F;bin -Dfile.encoding&#x3D;UTF-8</span><br><span class="line"># Warmup: 3 iterations, 10 s each</span><br><span class="line"># Measurement: 5 iterations, 5 s each</span><br><span class="line"># Timeout: 10 min per iteration</span><br><span class="line"># Threads: 10 threads, will synchronize iterations</span><br><span class="line"># Benchmark mode: Average time, time&#x2F;op</span><br><span class="line"># Benchmark: org.sample.StringConcatBenchmark.testStringAdd</span><br><span class="line"></span><br><span class="line"># Run progress: 0.00% complete, ETA 00:02:45</span><br><span class="line"># Fork: 1 of 1</span><br><span class="line"># Warmup Iteration   1: 1133.878 ±(99.9%) 8.908 ns&#x2F;op</span><br><span class="line"># Warmup Iteration   2: 526.384 ±(99.9%) 4.519 ns&#x2F;op</span><br><span class="line"># Warmup Iteration   3: 539.472 ±(99.9%) 4.808 ns&#x2F;op</span><br><span class="line">Iteration   1: 506.017 ±(99.9%) 12.309 ns&#x2F;op</span><br><span class="line">Iteration   2: 605.922 ±(99.9%) 7.550 ns&#x2F;op</span><br><span class="line">Iteration   3: 490.174 ±(99.9%) 12.273 ns&#x2F;op</span><br><span class="line">Iteration   4: 526.695 ±(99.9%) 16.855 ns&#x2F;op</span><br><span class="line">Iteration   5: 512.370 ±(99.9%) 9.163 ns&#x2F;op</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Result &quot;org.sample.StringConcatBenchmark.testStringAdd&quot;:</span><br><span class="line">  528.235 ±(99.9%) 174.681 ns&#x2F;op [Average]</span><br><span class="line">  (min, avg, max) &#x3D; (490.174, 528.235, 605.922), stdev &#x3D; 45.364</span><br><span class="line">  CI (99.9%): [353.554, 702.916] (assumes normal distribution)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># JMH version: 1.26</span><br><span class="line"># VM version: JDK 11.0.6, Java HotSpot(TM) 64-Bit Server VM, 11.0.6+8-LTS</span><br><span class="line"># VM invoker: &#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk-11.0.6.jdk&#x2F;Contents&#x2F;Home&#x2F;bin&#x2F;java</span><br><span class="line"># VM options: -javaagent:&#x2F;Applications&#x2F;IntelliJ IDEA 2.app&#x2F;Contents&#x2F;lib&#x2F;idea_rt.jar&#x3D;61459:&#x2F;Applications&#x2F;IntelliJ IDEA 2.app&#x2F;Contents&#x2F;bin -Dfile.encoding&#x3D;UTF-8</span><br><span class="line"># Warmup: 3 iterations, 10 s each</span><br><span class="line"># Measurement: 5 iterations, 5 s each</span><br><span class="line"># Timeout: 10 min per iteration</span><br><span class="line"># Threads: 10 threads, will synchronize iterations</span><br><span class="line"># Benchmark mode: Average time, time&#x2F;op</span><br><span class="line"># Benchmark: org.sample.StringConcatBenchmark.testStringBufferAdd</span><br><span class="line"></span><br><span class="line"># Run progress: 33.33% complete, ETA 00:01:52</span><br><span class="line"># Fork: 1 of 1</span><br><span class="line"># Warmup Iteration   1: 216.710 ±(99.9%) 1.301 ns&#x2F;op</span><br><span class="line"># Warmup Iteration   2: 216.944 ±(99.9%) 1.575 ns&#x2F;op</span><br><span class="line"># Warmup Iteration   3: 217.175 ±(99.9%) 2.539 ns&#x2F;op</span><br><span class="line">Iteration   1: 231.397 ±(99.9%) 1.942 ns&#x2F;op</span><br><span class="line">Iteration   2: 237.466 ±(99.9%) 1.343 ns&#x2F;op</span><br><span class="line">Iteration   3: 251.344 ±(99.9%) 1.715 ns&#x2F;op</span><br><span class="line">Iteration   4: 234.449 ±(99.9%) 5.907 ns&#x2F;op</span><br><span class="line">Iteration   5: 215.355 ±(99.9%) 3.810 ns&#x2F;op</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Result &quot;org.sample.StringConcatBenchmark.testStringBufferAdd&quot;:</span><br><span class="line">  234.002 ±(99.9%) 49.740 ns&#x2F;op [Average]</span><br><span class="line">  (min, avg, max) &#x3D; (215.355, 234.002, 251.344), stdev &#x3D; 12.917</span><br><span class="line">  CI (99.9%): [184.262, 283.743] (assumes normal distribution)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># JMH version: 1.26</span><br><span class="line"># VM version: JDK 11.0.6, Java HotSpot(TM) 64-Bit Server VM, 11.0.6+8-LTS</span><br><span class="line"># VM invoker: &#x2F;Library&#x2F;Java&#x2F;JavaVirtualMachines&#x2F;jdk-11.0.6.jdk&#x2F;Contents&#x2F;Home&#x2F;bin&#x2F;java</span><br><span class="line"># VM options: -javaagent:&#x2F;Applications&#x2F;IntelliJ IDEA 2.app&#x2F;Contents&#x2F;lib&#x2F;idea_rt.jar&#x3D;61459:&#x2F;Applications&#x2F;IntelliJ IDEA 2.app&#x2F;Contents&#x2F;bin -Dfile.encoding&#x3D;UTF-8</span><br><span class="line"># Warmup: 3 iterations, 10 s each</span><br><span class="line"># Measurement: 5 iterations, 5 s each</span><br><span class="line"># Timeout: 10 min per iteration</span><br><span class="line"># Threads: 10 threads, will synchronize iterations</span><br><span class="line"># Benchmark mode: Average time, time&#x2F;op</span><br><span class="line"># Benchmark: org.sample.StringConcatBenchmark.testStringBuilderAdd</span><br><span class="line"></span><br><span class="line"># Run progress: 66.67% complete, ETA 00:00:56</span><br><span class="line"># Fork: 1 of 1</span><br><span class="line"># Warmup Iteration   1: 307.429 ±(99.9%) 1.923 ns&#x2F;op</span><br><span class="line"># Warmup Iteration   2: 222.881 ±(99.9%) 2.113 ns&#x2F;op</span><br><span class="line"># Warmup Iteration   3: 215.555 ±(99.9%) 1.020 ns&#x2F;op</span><br><span class="line">Iteration   1: 223.996 ±(99.9%) 0.877 ns&#x2F;op</span><br><span class="line">Iteration   2: 220.913 ±(99.9%) 4.542 ns&#x2F;op</span><br><span class="line">Iteration   3: 239.446 ±(99.9%) 4.552 ns&#x2F;op</span><br><span class="line">Iteration   4: 246.228 ±(99.9%) 2.113 ns&#x2F;op</span><br><span class="line">Iteration   5: 211.977 ±(99.9%) 0.850 ns&#x2F;op</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Result &quot;org.sample.StringConcatBenchmark.testStringBuilderAdd&quot;:</span><br><span class="line">  228.512 ±(99.9%) 53.942 ns&#x2F;op [Average]</span><br><span class="line">  (min, avg, max) &#x3D; (211.977, 228.512, 246.228), stdev &#x3D; 14.009</span><br><span class="line">  CI (99.9%): [174.570, 282.454] (assumes normal distribution)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Run complete. Total time: 00:02:48</span><br><span class="line"></span><br><span class="line">REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on</span><br><span class="line">why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial</span><br><span class="line">experiments, perform baseline and negative tests that provide experimental control, make sure</span><br><span class="line">the benchmarking environment is safe on JVM&#x2F;OS&#x2F;HW level, ask for reviews from the domain experts.</span><br><span class="line">Do not assume the numbers tell you what you want them to tell.</span><br><span class="line"></span><br><span class="line">Benchmark                                    Mode  Cnt    Score     Error  Units</span><br><span class="line">StringAddBenchMarkDemo.testStringAdd         avgt    5  528.235 ± 174.681  ns&#x2F;op</span><br><span class="line">StringAddBenchMarkDemo.testStringBufferAdd   avgt    5  234.002 ±  49.740  ns&#x2F;op</span><br><span class="line">StringAddBenchMarkDemo.testStringBuilderAdd  avgt    5  228.512 ±  53.942  ns&#x2F;op</span><br><span class="line"></span><br><span class="line">Benchmark result is saved to jmh-result.json</span><br></pre></td></tr></table></figure>
+<h2 id="JMH-常用注解"><a href="#JMH-常用注解" class="headerlink" title="JMH 常用注解"></a>JMH 常用注解</h2><h3 id="BenchmarkMode"><a href="#BenchmarkMode" class="headerlink" title="@BenchmarkMode"></a>@BenchmarkMode</h3><p>基准测试类型。这里选择的是 <code>Throughput</code> 也就是吞吐量。根据源码点进去，每种类型后面都有对应的解释，比较好理解，吞吐量会得到单位时间内可以进行的操作数。</p>
+<ul>
+<li><code>Throughput</code> - 整体吞吐量，例如“1 秒内可以执行多少次调用”。</li>
+<li><code>AverageTime</code> - 调用的平均时间，例如“每次调用平均耗时 xxx 毫秒”。</li>
+<li><code>SampleTime</code> - 随机取样，最后输出取样结果的分布，例如“99%的调用在 xxx 毫秒以内，99.99%的调用在 xxx 毫秒以内”</li>
+<li><code>SingleShotTime</code> - 以上模式都是默认一次 iteration 是 1s，唯有 SingleShotTime 是只运行一次。往往同时把 warmup 次数设为 0，用于测试冷启动时的性能。</li>
+<li><code>All</code> - 所有模式</li>
+</ul>
+<h3 id="Warmup"><a href="#Warmup" class="headerlink" title="@Warmup"></a>@Warmup</h3><p>上面我们提到了，进行基准测试前需要进行预热。一般我们前几次进行程序测试的时候都会比较慢， 所以要让程序进行几轮预热，保证测试的准确性。其中的参数 iterations 也就非常好理解了，就是预热轮数。</p>
+<p>为什么需要预热？因为 JVM 的 JIT 机制的存在，如果某个函数被调用多次之后，JVM 会尝试将其编译成为机器码从而提高执行速度。所以为了让 benchmark 的结果更加接近真实情况就需要进行预热。</p>
+<h3 id="Measurement"><a href="#Measurement" class="headerlink" title="@Measurement"></a>@Measurement</h3><p>度量，其实就是一些基本的测试参数。</p>
+<ul>
+<li><code>iterations</code> - 进行测试的轮次</li>
+<li><code>time</code> - 每轮进行的时长</li>
+<li><code>timeUnit</code> - 时长单位</li>
+</ul>
+<p>都是一些基本的参数，可以根据具体情况调整。一般比较重的东西可以进行大量的测试，放到服务器上运行。</p>
+<h3 id="Threads"><a href="#Threads" class="headerlink" title="@Threads"></a>@Threads</h3><p>每个进程中的测试线程，这个非常好理解，根据具体情况选择，一般为 cpu 乘以 2,可用于类或者方法上。</p>
+<h3 id="Fork"><a href="#Fork" class="headerlink" title="@Fork"></a>@Fork</h3><p>进行 fork 的次数。如果 fork 数是 2 的话，则 JMH 会 fork 出两个进程来进行测试。</p>
+<h3 id="OutputTimeUnit"><a href="#OutputTimeUnit" class="headerlink" title="@OutputTimeUnit"></a>@OutputTimeUnit</h3><p>这个比较简单了，基准测试结果的时间类型。一般选择秒、毫秒、微秒。</p>
+<h3 id="Benchmark"><a href="#Benchmark" class="headerlink" title="@Benchmark"></a>@Benchmark</h3><p>方法级注解，表示该方法是需要进行 benchmark 的对象，用法和 JUnit 的 @Test 类似。</p>
+<h3 id="Param"><a href="#Param" class="headerlink" title="@Param"></a>@Param</h3><p>属性级注解，@Param 可以用来指定某项参数的多种情况。特别适合用来测试一个函数在不同的参数输入的情况下的性能。</p>
+<h3 id="Setup"><a href="#Setup" class="headerlink" title="@Setup"></a>@Setup</h3><p>方法级注解，这个注解的作用就是我们需要在测试之前进行一些准备工作，比如对一些数据的初始化之类的。</p>
+<h3 id="TearDown"><a href="#TearDown" class="headerlink" title="@TearDown"></a>@TearDown</h3><p>方法级注解，这个注解的作用就是我们需要在测试之后进行一些结束工作，比如关闭线程池，数据库连接等的，主要用于资源的回收等。</p>
+<h3 id="State"><a href="#State" class="headerlink" title="@State"></a>@State</h3><p>当使用 @Setup 参数的时候，必须在类上加这个参数，不然会提示无法运行。</p>
+<p>State 用于声明某个类是一个“状态”，然后接受一个 Scope 参数用来表示该状态的共享范围。 因为很多 benchmark 会需要一些表示状态的类，JMH 允许你把这些类以依赖注入的方式注入到 benchmark 函数里。Scope 主要分为三种。</p>
+<ul>
+<li><code>Thread</code> - 该状态为每个线程独享。</li>
+<li><code>Group</code> - 该状态为同一个组里面所有线程共享。</li>
+<li><code>Benchmark</code> - 该状态在所有线程间共享。</li>
+</ul>
+<h2 id="JMH-可视化"><a href="#JMH-可视化" class="headerlink" title="JMH 可视化"></a>JMH 可视化</h2><p>除此以外，如果你想将测试结果以图表的形式可视化，可以试下这些网站：</p>
+<ul>
+<li><code>JMH Visual Chart</code>：<a href="https://link.zhihu.com/?target=http://deepoove.com/jmh-visual-chart/">http://deepoove.com/jmh-visual-chart/</a></li>
+<li><code>JMH Visualizer</code>：<a href="https://link.zhihu.com/?target=https://jmh.morethan.io/">https://jmh.morethan.io/</a></li>
+</ul>
+<p>比如将上面测试例子结果的 json 文件导入，就可以实现可视化：</p>
+<p>![](/Users/yanzeyu/Blog/cat_house/source/images/JMH Visual Chart.png)</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-samples/src/main/java/org/openjdk/jmh/samples/">jmh 官方示例(opens new window)</a></li>
+<li><a href="https://www.xncoding.com/2018/01/07/java/jmh.html">Java 微基准测试框架 JMH</a></li>
+<li><a href="https://dunwu.github.io/javatech/test/jmh.html">https://dunwu.github.io/javatech/test/jmh.html</a></li>
+<li><a href="https://www.cnblogs.com/Binhua-Liu/p/5617995.html">https://www.cnblogs.com/Binhua-Liu/p/5617995.html</a></li>
+<li><a href="https://www.zhihu.com/question/276455629">https://www.zhihu.com/question/276455629</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>基准测试</category>
+      </categories>
+      <tags>
+        <tag>JMH</tag>
+      </tags>
+  </entry>
+</search>
