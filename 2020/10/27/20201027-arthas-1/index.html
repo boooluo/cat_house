@@ -247,7 +247,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Arthas（阿尔萨斯）-能为你做什么？"><a href="#Arthas（阿尔萨斯）-能为你做什么？" class="headerlink" title="Arthas（阿尔萨斯） 能为你做什么？"></a>Arthas（阿尔萨斯） 能为你做什么？</h2><img src="/Users/yanzeyu/Blog/cat_house/source/images/arthas.png" style="zoom:100%; float:left" />
+        <html><head></head><body></body></html><html><head></head><body><h2 id="Arthas（阿尔萨斯）-能为你做什么？"><a href="#Arthas（阿尔萨斯）-能为你做什么？" class="headerlink" title="Arthas（阿尔萨斯） 能为你做什么？"></a>Arthas（阿尔萨斯） 能为你做什么？</h2><img src="/Users/yanzeyu/Blog/cat_house/source/images/arthas.png" style="zoom:100%; float:left">
 
 <p><code>Arthas</code> 是Alibaba开源的Java诊断工具，深受开发者喜爱。</p>
 <p>当你遇到以下类似问题而束手无策时，<code>Arthas</code>可以帮助你解决：</p>
@@ -262,25 +262,25 @@
 </ol>
 <p><code>Arthas</code>支持JDK 6+，支持Linux/Mac/Windows，采用命令行交互模式，同时提供丰富的 <code>Tab</code> 自动补全功能，进一步方便进行问题的定位和诊断。</p>
 <h1 id="Arthas-Install"><a href="#Arthas-Install" class="headerlink" title="Arthas Install"></a>Arthas Install</h1><h2 id="快速安装"><a href="#快速安装" class="headerlink" title="快速安装"></a>快速安装</h2><h3 id="使用arthas-boot（官方推荐）"><a href="#使用arthas-boot（官方推荐）" class="headerlink" title="使用arthas-boot（官方推荐）"></a>使用<code>arthas-boot</code>（官方推荐）</h3><p>下载<code>arthas-boot.jar</code>，然后用<code>java -jar</code>的方式启动：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O https:&#x2F;&#x2F;arthas.aliyun.com&#x2F;arthas-boot.jar</span><br><span class="line">java -jar arthas-boot.jar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -O https://arthas.aliyun.com/arthas-boot.jar</span><br><span class="line">java -jar arthas-boot.jar</span><br></pre></td></tr></tbody></table></figure>
 <p>如果下载速度比较慢，可以使用aliyun的镜像：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar arthas-boot.jar --repo-mirror aliyun --use-http</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar arthas-boot.jar --repo-mirror aliyun --use-http</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="使用as-sh"><a href="#使用as-sh" class="headerlink" title="使用as.sh"></a>使用<code>as.sh</code></h3><p>Arthas 支持在 Linux/Unix/Mac 等平台上一键安装，请复制以下内容，并粘贴到命令行中，敲 <code>回车</code> 执行即可：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https:&#x2F;&#x2F;arthas.aliyun.com&#x2F;install.sh | sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://arthas.aliyun.com/install.sh | sh</span><br></pre></td></tr></tbody></table></figure>
 <p>上述命令会下载启动脚本文件 <code>as.sh</code> 到当前目录，你可以放在任何地方或将其加入到 <code>$PATH</code> 中。</p>
 <p>直接在shell下面执行<code>./as.sh</code>，就会进入交互界面。</p>
 <h1 id="Arthas启动"><a href="#Arthas启动" class="headerlink" title="Arthas启动"></a>Arthas启动</h1><h3 id="用as-sh启动"><a href="#用as-sh启动" class="headerlink" title="用as.sh启动"></a>用as.sh启动</h3><p>解压后，在文件夹里有<code>as.sh</code>，直接用<code>./as.sh</code>的方式启动：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;as.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./as.sh</span><br></pre></td></tr></tbody></table></figure>
 <p>打印帮助信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;as.sh -h</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./as.sh -h</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="用arthas-boot启动"><a href="#用arthas-boot启动" class="headerlink" title="用arthas-boot启动"></a>用arthas-boot启动</h3><p>或者在解压后，在文件夹里有<code>arthas-boot.jar</code>，直接用<code>java -jar</code>的方式启动：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar arthas-boot.jar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar arthas-boot.jar</span><br></pre></td></tr></tbody></table></figure>
 <p>打印帮助信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar arthas-boot.jar -h</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar arthas-boot.jar -h</span><br></pre></td></tr></tbody></table></figure>
 <p>选择应用java进程：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* [1]: 35542</span><br><span class="line">  [2]: 71560 arthas-demo.jar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* [1]: 35542</span><br><span class="line">  [2]: 71560 arthas-demo.jar</span><br></pre></td></tr></tbody></table></figure>
 <p>Demo进程是第2个，则输入2，再输入<code>回车/enter</code>。Arthas会attach到目标进程上，并输出日志：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[INFO] Try to attach process 71560</span><br><span class="line">[INFO] Attach process 71560 success.</span><br><span class="line">[INFO] arthas-client connect 127.0.0.1 3658</span><br><span class="line">  ,---.  ,------. ,--------.,--.  ,--.  ,---.   ,---.</span><br><span class="line"> &#x2F;  O  \ |  .--. &#39;&#39;--.  .--&#39;|  &#39;--&#39;  | &#x2F;  O  \ &#39;   .-&#39;</span><br><span class="line">|  .-.  ||  &#39;--&#39;.&#39;   |  |   |  .--.  ||  .-.  |&#96;.  &#96;-.</span><br><span class="line">|  | |  ||  |\  \    |  |   |  |  |  ||  | |  |.-&#39;    |</span><br><span class="line">&#96;--&#39; &#96;--&#39;&#96;--&#39; &#39;--&#39;   &#96;--&#39;   &#96;--&#39;  &#96;--&#39;&#96;--&#39; &#96;--&#39;&#96;-----&#39;</span><br><span class="line"> </span><br><span class="line">wiki: https:&#x2F;&#x2F;arthas.aliyun.com&#x2F;doc</span><br><span class="line">version: 3.0.5.20181127201536</span><br><span class="line">pid: 71560</span><br><span class="line">time: 2018-11-28 19:16:24</span><br><span class="line"> </span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[INFO] Try to attach process 71560</span><br><span class="line">[INFO] Attach process 71560 success.</span><br><span class="line">[INFO] arthas-client connect 127.0.0.1 3658</span><br><span class="line">  ,---.  ,------. ,--------.,--.  ,--.  ,---.   ,---.</span><br><span class="line"> /  O  \ |  .--. ''--.  .--'|  '--'  | /  O  \ '   .-'</span><br><span class="line">|  .-.  ||  '--'.'   |  |   |  .--.  ||  .-.  |`.  `-.</span><br><span class="line">|  | |  ||  |\  \    |  |   |  |  |  ||  | |  |.-'    |</span><br><span class="line">`--' `--'`--' '--'   `--'   `--'  `--'`--' `--'`-----'</span><br><span class="line"> </span><br><span class="line">wiki: https://arthas.aliyun.com/doc</span><br><span class="line">version: 3.0.5.20181127201536</span><br><span class="line">pid: 71560</span><br><span class="line">time: 2018-11-28 19:16:24</span><br><span class="line"> </span><br><span class="line">$</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>在命令行下面执行（使用和目标进程一致的用户启动，否则可能attach失败).</p>
 <p>执行该程序的用户需要和目标进程具有相同的权限。比如以<code>admin</code>用户来执行：<code>sudo su admin &amp;&amp; java -jar arthas-boot.jar</code> 或 <code>sudo -u admin -EH java -jar arthas-boot.jar</code>或<code>sudo -u admin ./as.sh</code>。</p>
 <h1 id="Arthas命令"><a href="#Arthas命令" class="headerlink" title="Arthas命令"></a>Arthas命令</h1><h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><ul>
@@ -338,7 +338,7 @@
 <h2 id="options"><a href="#options" class="headerlink" title="options"></a>options</h2><ul>
 <li>options——查看或设置Arthas全局开关</li>
 </ul>
-<h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><p>Arthas支持使用管道对上述命令的结果进行进一步的处理，如<code>sm java.lang.String * | grep &#39;index&#39;</code></p>
+<h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><p>Arthas支持使用管道对上述命令的结果进行进一步的处理，如<code>sm java.lang.String * | grep 'index'</code></p>
 <ul>
 <li>grep——搜索满足条件的结果</li>
 <li>plaintext——将命令的结果去除ANSI颜色</li>
@@ -405,11 +405,11 @@
 <td>显示所有匹配的线程</td>
 </tr>
 </tbody></table>
-<h3 id="当没有参数时，显示第一页线程的信息"><a href="#当没有参数时，显示第一页线程的信息" class="headerlink" title="当没有参数时，显示第一页线程的信息"></a>当没有参数时，显示第一页线程的信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ thread</span><br></pre></td></tr></table></figure>
-<h3 id="展示当前最忙的前N个线程并打印堆栈"><a href="#展示当前最忙的前N个线程并打印堆栈" class="headerlink" title="展示当前最忙的前N个线程并打印堆栈"></a>展示当前最忙的前N个线程并打印堆栈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ thread -n 3</span><br></pre></td></tr></table></figure>
-<h3 id="thread-id-显示指定线程的运行堆栈"><a href="#thread-id-显示指定线程的运行堆栈" class="headerlink" title="thread id, 显示指定线程的运行堆栈"></a>thread id, 显示指定线程的运行堆栈</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ thread 1</span><br></pre></td></tr></table></figure>
-<h3 id="thread-b-找出当前阻塞其他线程的线程"><a href="#thread-b-找出当前阻塞其他线程的线程" class="headerlink" title="thread -b, 找出当前阻塞其他线程的线程"></a>thread -b, 找出当前阻塞其他线程的线程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ thread -b</span><br></pre></td></tr></table></figure>
-<h3 id="thread-–state-，查看指定状态的线程"><a href="#thread-–state-，查看指定状态的线程" class="headerlink" title="thread –state ，查看指定状态的线程"></a>thread –state ，查看指定状态的线程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ thread --state WAITING</span><br></pre></td></tr></table></figure>
+<h3 id="当没有参数时，显示第一页线程的信息"><a href="#当没有参数时，显示第一页线程的信息" class="headerlink" title="当没有参数时，显示第一页线程的信息"></a>当没有参数时，显示第一页线程的信息</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ thread</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="展示当前最忙的前N个线程并打印堆栈"><a href="#展示当前最忙的前N个线程并打印堆栈" class="headerlink" title="展示当前最忙的前N个线程并打印堆栈"></a>展示当前最忙的前N个线程并打印堆栈</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ thread -n 3</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="thread-id-显示指定线程的运行堆栈"><a href="#thread-id-显示指定线程的运行堆栈" class="headerlink" title="thread id, 显示指定线程的运行堆栈"></a>thread id, 显示指定线程的运行堆栈</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ thread 1</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="thread-b-找出当前阻塞其他线程的线程"><a href="#thread-b-找出当前阻塞其他线程的线程" class="headerlink" title="thread -b, 找出当前阻塞其他线程的线程"></a>thread -b, 找出当前阻塞其他线程的线程</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ thread -b</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="thread-–state-，查看指定状态的线程"><a href="#thread-–state-，查看指定状态的线程" class="headerlink" title="thread –state ，查看指定状态的线程"></a>thread –state ，查看指定状态的线程</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ thread --state WAITING</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="jad"><a href="#jad" class="headerlink" title="jad"></a>jad</h1><blockquote>
 <p>反编译指定已加载类的源码</p>
 </blockquote>
@@ -443,8 +443,8 @@
 </tr>
 </tbody></table>
 <h3 id="反编译时只显示源代码"><a href="#反编译时只显示源代码" class="headerlink" title="反编译时只显示源代码"></a>反编译时只显示源代码</h3><p>默认情况下，反编译结果里会带有<code>ClassLoader</code>信息，通过<code>--source-only</code>选项，可以只打印源代码。方便和mc/redefine命令结合使用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jad --source-only demo.MathGame</span><br></pre></td></tr></table></figure>
-<h3 id="反编译指定的函数"><a href="#反编译指定的函数" class="headerlink" title="反编译指定的函数"></a>反编译指定的函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jad demo.MathGame main</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jad --source-only demo.MathGame</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="反编译指定的函数"><a href="#反编译指定的函数" class="headerlink" title="反编译指定的函数"></a>反编译指定的函数</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jad demo.MathGame main</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h1><blockquote>
 <p>方法执行数据观测</p>
 </blockquote>
@@ -498,27 +498,27 @@
 <td>指定输出结果的属性遍历深度，默认为 1</td>
 </tr>
 </tbody></table>
-<p>这里重点要说明的是观察表达式，观察表达式的构成主要由 ognl 表达式组成，所以你可以这样写<code>&quot;&#123;params,returnObj&#125;&quot;</code>，只要是一个合法的 ognl 表达式，都能被正常支持。</p>
+<p>这里重点要说明的是观察表达式，观察表达式的构成主要由 ognl 表达式组成，所以你可以这样写<code>"{params,returnObj}"</code>，只要是一个合法的 ognl 表达式，都能被正常支持。</p>
 <p>观察的维度也比较多，主要体现在参数 <code>advice</code> 的数据结构上。<code>Advice</code> 参数最主要是封装了通知节点的所有信息。请参考<a target="_blank" rel="noopener" href="https://arthas.aliyun.com/doc/advice-class.html">表达式核心变量</a>中关于该节点的描述。</p>
 <ul>
 <li>特殊用法请参考：<a target="_blank" rel="noopener" href="https://github.com/alibaba/arthas/issues/71">https://github.com/alibaba/arthas/issues/71</a></li>
 <li>OGNL表达式官网：<a target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-ognl/language-guide.html">https://commons.apache.org/proper/commons-ognl/language-guide.html</a></li>
 </ul>
-<h3 id="观察方法出参和返回值"><a href="#观察方法出参和返回值" class="headerlink" title="观察方法出参和返回值"></a>观察方法出参和返回值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &quot;&#123;params,returnObj&#125;&quot; -x 2</span><br></pre></td></tr></table></figure>
-<h3 id="观察方法入参"><a href="#观察方法入参" class="headerlink" title="观察方法入参"></a>观察方法入参</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &quot;&#123;params,returnObj&#125;&quot; -x 2 -b</span><br></pre></td></tr></table></figure>
-<h3 id="同时观察方法调用前和方法返回后"><a href="#同时观察方法调用前和方法返回后" class="headerlink" title="同时观察方法调用前和方法返回后"></a>同时观察方法调用前和方法返回后</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &quot;&#123;params,target,returnObj&#125;&quot; -x 2 -b -s -n 2</span><br></pre></td></tr></table></figure>
+<h3 id="观察方法出参和返回值"><a href="#观察方法出参和返回值" class="headerlink" title="观察方法出参和返回值"></a>观察方法出参和返回值</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors "{params,returnObj}" -x 2</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="观察方法入参"><a href="#观察方法入参" class="headerlink" title="观察方法入参"></a>观察方法入参</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors "{params,returnObj}" -x 2 -b</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="同时观察方法调用前和方法返回后"><a href="#同时观察方法调用前和方法返回后" class="headerlink" title="同时观察方法调用前和方法返回后"></a>同时观察方法调用前和方法返回后</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors "{params,target,returnObj}" -x 2 -b -s -n 2</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li>参数里<code>-n 2</code>，表示只执行两次</li>
 <li>这里输出结果中，第一次输出的是方法调用前的观察表达式的结果，第二次输出的是方法返回后的表达式的结果</li>
 <li>结果的输出顺序和事件发生的先后顺序一致，和命令中 <code>-s -b</code> 的顺序无关</li>
 </ul>
-<h3 id="条件表达式的例子"><a href="#条件表达式的例子" class="headerlink" title="条件表达式的例子"></a>条件表达式的例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &quot;&#123;params[0],target&#125;&quot; &quot;params[0]&lt;0&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="观察异常信息的例子"><a href="#观察异常信息的例子" class="headerlink" title="观察异常信息的例子"></a>观察异常信息的例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &quot;&#123;params[0],throwExp&#125;&quot; -e -x 2</span><br></pre></td></tr></table></figure>
+<h3 id="条件表达式的例子"><a href="#条件表达式的例子" class="headerlink" title="条件表达式的例子"></a>条件表达式的例子</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors "{params[0],target}" "params[0]&lt;0"</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="观察异常信息的例子"><a href="#观察异常信息的例子" class="headerlink" title="观察异常信息的例子"></a>观察异常信息的例子</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors "{params[0],throwExp}" -e -x 2</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li><code>-e</code>表示抛出异常时才触发</li>
 <li>express中，表示异常信息的变量是<code>throwExp</code></li>
 </ul>
-<h3 id="按照耗时进行过滤"><a href="#按照耗时进行过滤" class="headerlink" title="按照耗时进行过滤"></a>按照耗时进行过滤</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors &#39;&#123;params, returnObj&#125;&#39; &#39;#cost&gt;200&#39; -x 2</span><br></pre></td></tr></table></figure>
+<h3 id="按照耗时进行过滤"><a href="#按照耗时进行过滤" class="headerlink" title="按照耗时进行过滤"></a>按照耗时进行过滤</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch demo.MathGame primeFactors '{params, returnObj}' '#cost&gt;200' -x 2</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li><code>#cost&gt;200</code>(单位是<code>ms</code>)表示只有当耗时大于200ms时才会输出，过滤掉执行时间小于200ms的调用</li>
 </ul>
@@ -558,15 +558,15 @@
 <td>方法执行耗时</td>
 </tr>
 </tbody></table>
-<p>这里重点要说明的是观察表达式，观察表达式的构成主要由 ognl 表达式组成，所以你可以这样写<code>&quot;&#123;params,returnObj&#125;&quot;</code>，只要是一个合法的 ognl 表达式，都能被正常支持。</p>
+<p>这里重点要说明的是观察表达式，观察表达式的构成主要由 ognl 表达式组成，所以你可以这样写<code>"{params,returnObj}"</code>，只要是一个合法的 ognl 表达式，都能被正常支持。</p>
 <p>观察的维度也比较多，主要体现在参数 <code>advice</code> 的数据结构上。<code>Advice</code> 参数最主要是封装了通知节点的所有信息。</p>
-<h3 id="trace函数"><a href="#trace函数" class="headerlink" title="trace函数"></a>trace函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ trace demo.MathGame run</span><br></pre></td></tr></table></figure>
+<h3 id="trace函数"><a href="#trace函数" class="headerlink" title="trace函数"></a>trace函数</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ trace demo.MathGame run</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="trace次数限制"><a href="#trace次数限制" class="headerlink" title="trace次数限制"></a>trace次数限制</h3><p>如果方法调用的次数很多，那么可以用<code>-n</code>参数指定捕捉结果的次数。比如下面的例子里，捕捉到一次调用就退出命令。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ trace demo.MathGame run -n 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ trace demo.MathGame run -n 1</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="trace多个类或者多个函数"><a href="#trace多个类或者多个函数" class="headerlink" title="trace多个类或者多个函数"></a>trace多个类或者多个函数</h3><p>trace命令只会trace匹配到的函数里的子调用，并不会向下trace多层。因为trace是代价比较贵的，多层trace可能会导致最终要trace的类和函数非常多。</p>
 <p>可以用正则表匹配路径上的多个类和函数，一定程度上达到多层trace的效果。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trace -E com.test.ClassA|org.test.ClassB method1|method2|method3</span><br></pre></td></tr></table></figure>
-<h3 id="据调用耗时过滤"><a href="#据调用耗时过滤" class="headerlink" title="据调用耗时过滤"></a>据调用耗时过滤</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ trace demo.MathGame run &#39;#cost &gt; 10&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trace -E com.test.ClassA|org.test.ClassB method1|method2|method3</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="据调用耗时过滤"><a href="#据调用耗时过滤" class="headerlink" title="据调用耗时过滤"></a>据调用耗时过滤</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ trace demo.MathGame run '#cost &gt; 10'</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="tt"><a href="#tt" class="headerlink" title="tt"></a>tt</h1><blockquote>
 <p>方法执行数据的时空隧道，记录下指定方法每次调用的入参和返回信息，并能对这些不同的时间下调用进行观测</p>
 </blockquote>
@@ -574,7 +574,7 @@
 <p>这个时候如果能记录下当时方法调用的所有入参和返回值、抛出的异常会对整个问题的思考与判断非常有帮助。</p>
 <p>于是乎，TimeTunnel 命令就诞生了。</p>
 <h3 id="记录调用"><a href="#记录调用" class="headerlink" title="记录调用"></a>记录调用</h3><p>对于一个最基本的使用来说，就是记录下当前方法的每次调用环境现场。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tt -t demo.MathGame primeFactors</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tt -t demo.MathGame primeFactors</span><br></pre></td></tr></tbody></table></figure>
 <ul>
 <li><p>命令参数解析</p>
 <ul>
@@ -642,23 +642,23 @@
 <li><p>解决方法重载</p>
 <p><code>tt -t *Test print params.length==1</code></p>
 <p>通过制定参数个数的形式解决不同的方法签名，如果参数个数一样，你还可以这样写</p>
-<p><code>tt -t *Test print &#39;params[1] instanceof Integer&#39;</code></p>
+<p><code>tt -t *Test print 'params[1] instanceof Integer'</code></p>
 </li>
 <li><p>解决指定参数</p>
-<p><code>tt -t *Test print params[0].mobile==&quot;13989838402&quot;</code></p>
+<p><code>tt -t *Test print params[0].mobile=="13989838402"</code></p>
 </li>
 </ul>
 <h3 id="检索调用记录"><a href="#检索调用记录" class="headerlink" title="检索调用记录"></a>检索调用记录</h3><p>当你用 <code>tt</code> 记录了一大片的时间片段之后，你希望能从中筛选出自己需要的时间片段，这个时候你就需要对现有记录进行检索。</p>
 <p>假设我们有这些记录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tt -l</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tt -l</span><br></pre></td></tr></tbody></table></figure>
 <p>我需要筛选出 <code>primeFactors</code> 方法的调用信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tt -s &#39;method.name&#x3D;&#x3D;&quot;primeFactors&quot;&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tt -s 'method.name=="primeFactors"'</span><br></pre></td></tr></tbody></table></figure>
 <p>你需要一个 <code>-s</code> 参数。同样的，搜索表达式的核心对象依旧是 <code>Advice</code> 对象。</p>
 <h3 id="查看调用信息"><a href="#查看调用信息" class="headerlink" title="查看调用信息"></a>查看调用信息</h3><p>对于具体一个时间片的信息而言，你可以通过 <code>-i</code> 参数后边跟着对应的 <code>INDEX</code> 编号查看到他的详细信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tt -i 1003</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tt -i 1003</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="重做一次调用"><a href="#重做一次调用" class="headerlink" title="重做一次调用"></a>重做一次调用</h3><p>当你稍稍做了一些调整之后，你可能需要前端系统重新触发一次你的调用，此时得求爷爷告奶奶的需要前端配合联调的同学再次发起一次调用。而有些场景下，这个调用不是这么好触发的。</p>
 <p><code>tt</code> 命令由于保存了当时调用的所有现场信息，所以我们可以自己主动对一个 <code>INDEX</code> 编号的时间片自主发起一次调用，从而解放你的沟通成本。此时你需要 <code>-p</code> 参数。通过 <code>--replay-times</code> 指定 调用次数，通过 <code>--replay-interval</code> 指定多次调用间隔(单位ms, 默认1000ms)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tt -i 1004 -p</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tt -i 1004 -p</span><br></pre></td></tr></tbody></table></figure>
 <p>你会发现结果虽然一样，但调用的路径发生了变化，有原来的程序发起变成了 Arthas 自己的内部线程发起的调用了。</p>
 <ul>
 <li><p>需要强调的点</p>
@@ -675,7 +675,7 @@
 </ul>
 <h1 id="表达式核心变量"><a href="#表达式核心变量" class="headerlink" title="表达式核心变量"></a>表达式核心变量</h1><p>无论是匹配表达式也好、观察表达式也罢，他们核心判断变量都是围绕着一个 Arthas 中的通用通知对象 <code>Advice</code> 进行。</p>
 <p>它的简略代码结构如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Advice &#123;</span><br><span class="line"> </span><br><span class="line">    private final ClassLoader loader;</span><br><span class="line">    private final Class&lt;?&gt; clazz;</span><br><span class="line">    private final ArthasMethod method;</span><br><span class="line">    private final Object target;</span><br><span class="line">    private final Object[] params;</span><br><span class="line">    private final Object returnObj;</span><br><span class="line">    private final Throwable throwExp;</span><br><span class="line">    private final boolean isBefore;</span><br><span class="line">    private final boolean isThrow;</span><br><span class="line">    private final boolean isReturn;</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; getter&#x2F;setter  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Advice {</span><br><span class="line"> </span><br><span class="line">    private final ClassLoader loader;</span><br><span class="line">    private final Class&lt;?&gt; clazz;</span><br><span class="line">    private final ArthasMethod method;</span><br><span class="line">    private final Object target;</span><br><span class="line">    private final Object[] params;</span><br><span class="line">    private final Object returnObj;</span><br><span class="line">    private final Throwable throwExp;</span><br><span class="line">    private final boolean isBefore;</span><br><span class="line">    private final boolean isThrow;</span><br><span class="line">    private final boolean isReturn;</span><br><span class="line">    </span><br><span class="line">    // getter/setter  </span><br><span class="line">}  </span><br></pre></td></tr></tbody></table></figure>
 <p>这里列一个表格来说明不同变量的含义</p>
 <table>
 <thead>
@@ -741,7 +741,7 @@
 <blockquote>
 <p>原理介绍2:<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0771646f3f25">https://www.jianshu.com/p/0771646f3f25</a></p>
 </blockquote>
-
+</body></html>
     </div>
 
     
